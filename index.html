@@ -140,7 +140,7 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
 /* case covers */
 .covers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 .cover-card{display:grid;gap:14px;align-content:start;text-decoration:none;color:var(--fg)}
-.cover-card img{border-radius:14px;aspect-ratio:16/10;object-fit:cover;width:100%;transition:transform .25s ease,box-shadow .25s ease}
+.cover-card img{border-radius:14px;aspect-ratio:16/9;object-fit:cover;width:100%;transition:transform .25s ease,box-shadow .25s ease}
 .cover-card:hover img{transform:translateY(-3px);box-shadow:0 18px 40px rgba(20,30,60,.18)}
 .cover-card div{display:grid;gap:4px}
 .cover-card h3{font-size:20px;font-weight:600}
@@ -157,7 +157,7 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
 .modules li::before{content:"";position:absolute;left:0;top:20px;width:8px;height:8px;border-radius:2px;background:var(--plan)}
 .modules b{font-weight:600}
 .modules span{font-size:15px;color:var(--muted)}
-.case-cover{border-radius:16px;width:100%;aspect-ratio:16/10;object-fit:cover}
+.case-cover{border-radius:16px;width:100%;aspect-ratio:16/9;object-fit:cover}
 .summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding:20px 0;border-block:1px solid var(--line)}
 .summary > div{display:grid;gap:6px;align-content:start}
 .summary p:not(.mono){font-size:16px}
@@ -283,11 +283,11 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
       <p class="prose" style="color:var(--muted)">Экраны показаны с демонстрационными данными. Внутренние адреса и имена сотрудников скрыты.</p>
     </div>
     <div class="covers">
-      <a class="cover-card wide" href="#case-rakurs"><img src="assets/img/covers/rakurs.jpg" alt="" width="1600" height="1000"><div><span class="mono">Enterprise · аналитика</span><h3>Ракурс 2.0: редизайн сводной аналитической таблицы</h3></div></a>
-      <a class="cover-card" href="#case-bnpl"><img src="assets/img/covers/bnpl.jpg" alt="" width="1600" height="1000" loading="lazy"><div><span class="mono">Финтех · mobile</span><h3>Сервис оплаты покупок частями</h3></div></a>
-      <a class="cover-card" href="#case-bank"><img src="assets/img/covers/bank.jpg" alt="" width="1600" height="1000" loading="lazy"><div><span class="mono">Финтех · mobile и web</span><h3>Дистанционное банковское обслуживание</h3></div></a>
-      <a class="cover-card" href="#case-gantt"><img src="assets/img/covers/gantt.jpg" alt="" width="1600" height="1000" loading="lazy"><div><span class="mono">Enterprise · взаимодействие</span><h3>Интерактивное планирование на диаграмме Ганта</h3></div></a>
-      <a class="cover-card" href="#case-ds"><img src="assets/img/covers/ds.jpg" alt="" width="1600" height="1000" loading="lazy"><div><span class="mono">Дизайн-система</span><h3>Токены и процесс обновления компонентов</h3></div></a>
+      <a class="cover-card wide" href="#case-rakurs"><img src="assets/img/covers/rakurs.jpg" alt="" width="1600" height="900"><div><span class="mono">Enterprise · аналитика</span><h3>Ракурс 2.0: редизайн сводной аналитической таблицы</h3></div></a>
+      <a class="cover-card" href="#case-bnpl"><img src="assets/img/covers/bnpl.jpg" alt="" width="1920" height="1080" loading="lazy"><div><span class="mono">Финтех · mobile</span><h3>Сервис оплаты покупок частями</h3></div></a>
+      <a class="cover-card" href="#case-bank"><img src="assets/img/covers/bank.jpg" alt="" width="1920" height="1080" loading="lazy"><div><span class="mono">Финтех · mobile и web</span><h3>Дистанционное банковское обслуживание</h3></div></a>
+      <a class="cover-card" href="#case-gantt"><img src="assets/img/covers/gantt.jpg" alt="" width="1600" height="900" loading="lazy"><div><span class="mono">Enterprise · взаимодействие</span><h3>Интерактивное планирование на диаграмме Ганта</h3></div></a>
+      <a class="cover-card" href="#case-ds"><img src="assets/img/covers/ds.jpg" alt="" width="1600" height="900" loading="lazy"><div><span class="mono">Дизайн-система</span><h3>Токены и процесс обновления компонентов</h3></div></a>
     </div>
 
     <div class="ips">
@@ -310,7 +310,7 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
 <!-- CASE: RAKURS -->
 <section class="case" id="case-rakurs">
   <div class="wrap">
-    <img class="case-cover" src="assets/img/covers/rakurs.jpg" alt="Обложка кейса «Ракурс 2.0»" width="1600" height="1000" loading="lazy">
+    <img class="case-cover" src="assets/img/covers/rakurs.jpg" alt="Обложка кейса «Ракурс 2.0»" width="1600" height="900" loading="lazy">
     <div class="case-head">
       <p class="mono">Кейс 1 · IPS · 2026 · концепция и бэклог</p>
       <h2>Ракурс 2.0: редизайн сводной аналитической таблицы</h2>
@@ -371,7 +371,7 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
 <!-- CASE: BNPL -->
 <section class="case" id="case-bnpl">
   <div class="wrap">
-    <img class="case-cover" src="assets/img/covers/bnpl.jpg" alt="Обложка кейса «Сервис оплаты покупок частями»" width="1600" height="1000" loading="lazy">
+    <img class="case-cover" src="assets/img/covers/bnpl.jpg" alt="Обложка кейса «Сервис оплаты покупок частями»" width="1920" height="1080" loading="lazy">
     <div class="case-head">
       <p class="mono">Кейс 2 · SimbirSoft · финтех · mobile</p>
       <h2>Сервис оплаты покупок частями</h2>
@@ -401,13 +401,21 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
         </ul>
       </div>
     </div>
+    <figure class="fig">
+      <img src="assets/img/fintech/bnpl-1.jpg" alt="Три экрана покупки в рассрочку: график платежей, просроченный платёж со штрафом и выбор варианта погашения" loading="lazy" width="1920" height="1080">
+      <figcaption>Карточка покупки: график платежей, состояние просрочки и выбор варианта досрочного погашения.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="assets/img/fintech/bnpl-2.jpg" alt="Три экрана: каталог магазинов-партнёров, карточка магазина и оплата по QR-коду" loading="lazy" width="1920" height="1080">
+      <figcaption>Каталог партнёров, карточка магазина и оплата по QR-коду на кассе.</figcaption>
+    </figure>
   </div>
 </section>
 
 <!-- CASE: BANK -->
 <section class="case" id="case-bank">
   <div class="wrap">
-    <img class="case-cover" src="assets/img/covers/bank.jpg" alt="Обложка кейса «Дистанционное банковское обслуживание»" width="1600" height="1000" loading="lazy">
+    <img class="case-cover" src="assets/img/covers/bank.jpg" alt="Обложка кейса «Дистанционное банковское обслуживание»" width="1920" height="1080" loading="lazy">
     <div class="case-head">
       <p class="mono">Кейс 3 · SimbirSoft · финтех · mobile и web</p>
       <h2>Дистанционное банковское обслуживание</h2>
@@ -437,13 +445,29 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
         </ul>
       </div>
     </div>
+    <figure class="fig">
+      <img src="assets/img/fintech/bank-mobile-1.jpg" alt="Три экрана мобильного банка: главный экран с картами, карточка вклада с историей операций, чат поддержки" loading="lazy" width="1920" height="1080">
+      <figcaption>Мобильный банк: главный экран, вклад с историей операций, чат поддержки.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="assets/img/fintech/bank-mobile-2.jpg" alt="Три экрана: переводы по номеру телефона через СБП, карточка карты с расходами за месяц, управление картой" loading="lazy" width="1920" height="1080">
+      <figcaption>Переводы через СБП, карточка с аналитикой расходов и управление картой.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="assets/img/fintech/bank-web-cover.jpg" alt="Интернет-банк на ноутбуке: раздел переводов, форма отложенного перевода" loading="lazy" width="1920" height="1080">
+      <figcaption>Интернет-банк: раздел переводов и отложенный перевод.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="assets/img/fintech/bank-web-2.jpg" alt="Мобильная версия интернет-банка: личный кабинет, ввод кода отложенного перевода, реквизиты" loading="lazy" width="1920" height="1080">
+      <figcaption>Мобильная адаптация: личный кабинет, получение отложенного перевода, реквизиты.</figcaption>
+    </figure>
   </div>
 </section>
 
 <!-- CASE: GANTT -->
 <section class="case" id="case-gantt">
   <div class="wrap">
-    <img class="case-cover" src="assets/img/covers/gantt.jpg" alt="Обложка кейса «Интерактивное планирование на диаграмме Ганта»" width="1600" height="1000" loading="lazy">
+    <img class="case-cover" src="assets/img/covers/gantt.jpg" alt="Обложка кейса «Интерактивное планирование на диаграмме Ганта»" width="1600" height="900" loading="lazy">
     <div class="case-head">
       <p class="mono">Кейс 4 · IPS · 08.2024 — 07.2025 · передано в разработку</p>
       <h2>Интерактивное планирование на диаграмме Ганта</h2>
@@ -490,7 +514,7 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
 <!-- CASE: DS -->
 <section class="case" id="case-ds">
   <div class="wrap">
-    <img class="case-cover" src="assets/img/covers/ds.jpg" alt="Обложка кейса «Дизайн-система ИЦК»" width="1600" height="1000" loading="lazy">
+    <img class="case-cover" src="assets/img/covers/ds.jpg" alt="Обложка кейса «Дизайн-система ИЦК»" width="1600" height="900" loading="lazy">
     <div class="case-head">
       <p class="mono">Кейс 5 · дизайн-система ИЦК · командный проект</p>
       <h2>Токены и процесс обновления компонентов</h2>

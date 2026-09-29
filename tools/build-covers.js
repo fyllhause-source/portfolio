@@ -1,17 +1,14 @@
-// Собирает обложки кейсов в assets/img/covers/*.jpg (1600×1000).
+// Собирает обложки IPS-кейсов в assets/img/covers/*.jpg (1600×900, 16:9 как обложки из Figma).
 // Запуск из корня репозитория: NODE_PATH=$(npm root -g) node tools/build-covers.js
-// Обложки финтех-кейсов используют PNG из assets/img/fintech/, если они есть.
-// Без них собирается типографская обложка.
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
 const img = (p) => 'file://' + path.join(root, 'assets/img', p);
-const has = (p) => fs.existsSync(path.join(root, 'assets/img', p));
 const fonts = 'file://' + path.join(root, 'assets/fonts/fonts.css');
 
-const W = 1600, H = 1000;
+const W = 1600, H = 900;
 
 // Фрагмент скриншота 1920×1002: x, y, w, h в пикселях исходника, scale — увеличение
 const crop = (file, x, y, w, h, scale = 1) => `
@@ -25,7 +22,6 @@ const browser = (file, width) => `
     <img src="${img(file)}">
   </div>`;
 
-const phone = (file) => `<div class="phone"><img src="${img(file)}"></div>`;
 
 const base = (bg, body) => `<!doctype html><html><head><meta charset="utf-8">
 <link rel="stylesheet" href="${fonts}">
@@ -86,33 +82,15 @@ const covers = {
     <div class="browser" style="left:900px;top:120px;width:560px">
       <div class="chrome"><i></i><i></i><i></i></div>
       <div style="height:900px;background:url('${img('ds-tokens-spec.jpg')}') no-repeat top/100% auto"></div></div>
-    <div class="float" style="left:88px;top:500px;display:grid;gap:18px">
+    <div class="float" style="left:88px;top:430px;display:grid;gap:18px">
       <p class="code" style="opacity:.55;text-decoration:line-through">--dropdown-padding-menu-horizont</p>
       <p class="code">--dropdown-menu-padding_h</p>
       <p class="code">--fild-border-color-hover</p>
     </div>
-    <div class="chip" style="left:88px;top:790px"><b>95&nbsp;%</b><span>корпоративных систем на ДС · результат команды</span></div>`),
+    <div class="chip" style="left:88px;top:720px"><b>95&nbsp;%</b><span>корпоративных систем на ДС · результат команды</span></div>`),
 };
 
-// Финтех-кейсы: телефоны или браузер, если PNG уже лежат в assets/img/fintech/
-const fintech = [
-  { id: 'bnpl', bg: 'linear-gradient(135deg,#3a0d1f 0%,#b3283c 55%,#ff7a45 100%)',
-    tag: 'Финтех · mobile · BNPL', title: 'Сервис оплаты покупок частями',
-    sub: 'Мобильное приложение: график платежей, история покупок, напоминания',
-    phones: ['fintech/bnpl-1.png', 'fintech/bnpl-2.png', 'fintech/bnpl-3.png'] },
-  { id: 'bank', bg: 'linear-gradient(135deg,#07142b 0%,#123a73 55%,#2f7de0 100%)',
-    tag: 'Финтех · mobile и web · банкинг', title: 'Дистанционное банковское обслуживание',
-    sub: 'Мобильный банк, интернет-банк и онлайн-кредитование',
-    phones: ['fintech/bank-mobile-1.png', 'fintech/bank-mobile-2.png'], web: 'fintech/bank-web-1.png' },
-];
-for (const f of fintech) {
-  const shots = f.phones.filter(has);
-  let visual = '';
-  if (f.web && has(f.web)) visual += `<div style="position:absolute;left:560px;top:430px">${browser(f.web, 1100)}</div>`;
-  if (shots.length) visual += `<div class="phones">${shots.map(phone).join('')}</div>`;
-  if (!visual) visual = `<div class="glow" style="width:820px;height:820px;right:-160px;bottom:-260px;background:rgba(255,255,255,.35)"></div>`;
-  covers[f.id] = base(f.bg, `<div class="grid"></div>${label(f.tag, f.title, f.sub)}${visual}`);
-}
+// Обложки финтех-кейсов (bnpl.jpg, bank.jpg) экспортированы из Figma и этим скриптом не генерируются.
 
 (async () => {
   const out = path.join(root, 'assets/img/covers');
