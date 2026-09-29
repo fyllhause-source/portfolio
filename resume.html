@@ -2,20 +2,20 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<title>Резюме — Senior Product Designer</title>
+<title>Евгений Полев — резюме</title>
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <style>
-@page{size:A4;margin:14mm 15mm}
+@page{size:A4;margin:12mm 14mm}
 :root{--fg:#161a22;--muted:#555d6c;--line:#d9dde4;--accent:#b86e00;--plan:#2f5bd3}
 *{box-sizing:border-box}
-body{margin:0;color:var(--fg);background:#fff;font:400 10pt/1.45 "Onest",Arial,sans-serif}
+body{margin:0;color:var(--fg);background:#fff;font:400 9.5pt/1.4 "Onest",Arial,sans-serif}
 h1,h2,h3,p{margin:0}
 .mono{font-family:"IBM Plex Mono",monospace;font-size:8pt;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 header{display:grid;gap:4px;padding-bottom:10px;border-bottom:2px solid var(--fg)}
 h1{font-size:22pt;font-weight:700;letter-spacing:-.01em}
 .role{font-size:12pt;font-weight:500}
-.contacts{display:flex;flex-wrap:wrap;gap:4px 16px;color:var(--muted);font-size:9pt;margin-top:4px}
-section{padding-top:11px;display:grid;gap:6px}
+.contacts{display:flex;flex-wrap:wrap;gap:4px 12px;color:var(--muted);font-size:8.8pt;margin-top:4px}
+section{padding-top:9px;display:grid;gap:5px}
 h2{font-family:"IBM Plex Mono",monospace;font-size:8.5pt;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:3px}
 .job{display:grid;gap:3px;break-inside:avoid-page}
 .job-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
@@ -24,22 +24,21 @@ h2{font-family:"IBM Plex Mono",monospace;font-size:8.5pt;font-weight:500;letter-
 ul{margin:2px 0 0;padding-left:15px;display:grid;gap:2.5px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 20px}
 .grid p b{font-weight:600}
-.todo{border:1px dashed var(--accent);padding:6px 8px;color:var(--muted)}
 a{color:var(--plan);text-decoration:none}
 </style>
 </head>
 <body>
 <header>
-  <h1>Имя Фамилия</h1>
+  <h1>Евгений Полев</h1>
   <p class="role">Senior Product Designer · Enterprise UX · B2B Manufacturing</p>
   <div class="contacts">
-    <span>Город · формат работы</span><span>Telegram: @username</span><span>email@example.com</span><span>+7 (000) 000-00-00</span><span>Портфолио: ссылка</span>
+    <span>Краснодар · удалённо или гибрид</span><span>+7 (993) 770-23-79</span><span>Telegram: <a href="https://t.me/evgeniy_plv">@evgeniy_plv</a></span><span><a href="mailto:polev.e.a@gmail.com">polev.e.a@gmail.com</a></span><span><a href="https://app.notion.com/p/604245236b4b4c4ba1c27b6a5beedbef">Портфолио</a></span>
   </div>
 </header>
 
 <section>
   <h2>Обо мне</h2>
-  <p>Продуктовый дизайнер сложных enterprise-систем. Последние 2,5 года проектирую IPS, платформу производственного и тактического планирования в «Северсталь Инфоком». Работаю с плотными таблицами, диаграммами Ганта, алгоритмами планирования и дизайн-системой. Веду задачу от анализа процесса и use cases до спецификации с критериями приёмки и контроля реализации.</p>
+  <p>Продуктовый дизайнер с 2018 года. С 2024 года проектирую IPS, платформу производственного и тактического планирования в «Северсталь Инфоком»: плотные таблицы, диаграммы Ганта, алгоритмы планирования, дизайн-система. Веду задачу от анализа процесса и use cases до спецификации с критериями приёмки и Design QA.</p>
 </section>
 
 <section>
@@ -48,26 +47,32 @@ a{color:var(--plan);text-decoration:none}
     <div class="job-head"><h3>Ведущий продуктовый дизайнер · Северсталь Инфоком</h3><span class="when">02.2024 — сейчас</span></div>
     <p class="mono">IT-компания группы «Северсталь» · IPS: оперативное и тактическое планирование</p>
     <ul>
-      <li>Спроектировал модуль планирования операций на диаграмме Ганта: масштаб часы/дни/недели, drag-and-drop операций между альтернативными ресурсами, видимые цепочки, обработка конфликтов сохранения. Три итерации с аналитиками и разработкой, модуль передан в разработку.</li>
-      <li>Провёл аудит и подготовил концепцию редизайна «Ракурса», главного рабочего места планировщика (17 показателей, 1&nbsp;127 строк): 9 экранов, 8 состояний ячейки, инспектор, настройка без сжатия таблицы, честный статус загрузки.</li>
-      <li>Сократил постоянный интерфейс над таблицей на 37&nbsp;% (140 → 88&nbsp;px). Рабочая область таблицы выросла на 68&nbsp;px на каждом экране.</li>
-      <li>Разложил концепцию в бэклог на 10 эпиков и 55 задач (P0–P2, оценка S–XL, слои FE/BE/DS, критерии приёмки, включая доступность и тёмную тему).</li>
-      <li>Заложил план проверки: юзабилити-тест на 6–8 планировщиках, древесное тестирование навигации на 10–12, базовые метрики (время правки, число откатов, доля работы в Excel).</li>
-      <li>Предложил программу из 9 небольших улучшений бокового фильтра для всех гридов и ракурсов: последовательная фильтрация, поиск по атрибутам, единые кнопки.</li>
-      <li>Написал спецификацию именования токенов ДС ИЦК и правило «логических» компонентов для полей формы. Описал алгоритм обновления компонента Figma → Storybook, проектировал компоненты. ДС охватывает 95&nbsp;% корпоративных систем.</li>
-      <li>Участвовал во внедрении AI-агента на n8n для Design QA. Время дизайн-ревью сократилось в 2 раза.</li>
+      <li>Спроектировал модуль планирования операций на диаграмме Ганта: масштаб часы/дни/недели, drag-and-drop между альтернативными ресурсами, видимые цепочки, конфликты сохранения. Три итерации с аналитиками и разработкой, модуль передан в разработку.</li>
+      <li>Провёл аудит и подготовил концепцию редизайна «Ракурса», главного рабочего места планировщика (17 показателей, 1&nbsp;127 строк): 9 экранов, 8 состояний ячейки, инспектор, настройка без сжатия таблицы. Сократил постоянный интерфейс над таблицей на 37&nbsp;% (140 → 88&nbsp;px).</li>
+      <li>Разложил концепцию в бэклог на 10 эпиков и 55 задач (P0–P2, оценка S–XL, критерии приёмки). Заложил проверку: юзабилити-тест на 6–8 планировщиках, tree testing, базовые метрики (время правки, откаты, доля работы в Excel).</li>
+      <li>Предложил 9 малых улучшений бокового фильтра для всех гридов и ракурсов IPS.</li>
+      <li>Написал спецификацию именования токенов ДС ИЦК и правило «логических» компонентов для полей формы. Описал процесс обновления компонента Figma → Storybook, проектировал компоненты. Результат команды: ДС охватывает 95&nbsp;% корпоративных систем.</li>
+      <li>Участвовал во внедрении AI-агента Design QA на n8n. Результат команды: ревью в 2 раза быстрее.</li>
     </ul>
   </div>
   <div class="job">
-    <div class="job-head"><h3>Должность · Компания</h3><span class="when">ММ.ГГГГ — 01.2024</span></div>
-    <p class="todo">Будет дополнено из прошлого резюме.</p>
+    <div class="job-head"><h3>UX/UI-дизайнер · SimbirSoft</h3><span class="when">09.2021 — 01.2024</span></div>
+    <p class="mono">Заказная разработка · логистика, финтех, B2B и B2C</p>
+    <ul>
+      <li>Спроектировал мобильное приложение сервиса оплаты частями (BNPL) от концепции и пользовательского пути до UI-кита, передачи в разработку и контроля вёрстки.</li>
+      <li>Проводил опросы пользователей и интервью с экспертами предметной области. Проектировал B2B-интерфейсы, включая систему управления ИТ-активами. Организовывал работу дизайн-команды до 5 человек.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-head"><h3>UX/UI-дизайнер · Фриланс</h3><span class="when">07.2018 — 08.2021</span></div>
+    <ul><li>Сайты и приложения для банков, ритейла и медицины: конкурентный анализ, прототипы, концепции.</li></ul>
   </div>
 </section>
 
 <section>
   <h2>Навыки</h2>
   <div class="grid">
-    <p><b>Продукт:</b> Product Discovery, анализ бизнес-процессов, use cases, User Flow, CJM, JTBD, гипотезы и метрики</p>
+    <p><b>Продукт:</b> Product Discovery, анализ процессов, use cases, User Flow, CJM, JTBD, метрики</p>
     <p><b>Исследования:</b> юзабилити-тестирование, tree testing, интервью, конкурентный анализ</p>
     <p><b>Проектирование:</b> Enterprise UX, таблицы и пивоты, диаграммы Ганта, IA и навигация, состояния, доступность</p>
     <p><b>Системы:</b> дизайн-система, дизайн-токены, тёмная тема, Storybook, Design Review, Design QA</p>
@@ -78,7 +83,7 @@ a{color:var(--plan);text-decoration:none}
 
 <section>
   <h2>Образование</h2>
-  <p class="todo">Будет дополнено из прошлого резюме.</p>
+  <p><b>Школа UX/UI-дизайна Everest</b> · <b>курсы Uprock и Helper</b>: исследования, интерфейсы, мобильные приложения<br><b>КубГТУ</b> · экспертиза и управление недвижимостью</p>
 </section>
 </body>
 </html>

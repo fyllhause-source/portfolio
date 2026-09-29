@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Портфолио продуктового дизайнера</title>
-<meta name="description" content="Senior Product Designer. Enterprise UX для промышленного планирования: IPS, дизайн-система, сложные таблицы и диаграммы Ганта.">
+<title>Евгений Полев — продуктовый дизайнер</title>
+<meta name="description" content="Евгений Полев, Senior Product Designer. Enterprise UX для промышленного планирования: IPS, дизайн-система, сложные таблицы и диаграммы Ганта.">
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,6 +60,8 @@ p{margin:0}
 .chip.amber{background:var(--accent-soft);border-color:transparent;color:var(--fg)}
 .contacts{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:15px;color:var(--muted)}
 .contacts span{user-select:all}
+.contacts a{color:var(--fg);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.contacts a:hover{color:var(--plan)}
 
 section{padding-block:56px;border-top:1px solid var(--line)}
 section > .wrap{display:grid;gap:28px}
@@ -69,7 +71,7 @@ section > .wrap > *{min-width:0}
 
 /* timeline — опыт как строки ресурса на диаграмме Ганта */
 .gantt{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow-x:auto}
-.gantt-inner{min-width:640px;display:grid;grid-template-columns:200px 1fr}
+.gantt-inner{min-width:720px;display:grid;grid-template-columns:200px 1fr}
 .g-axis{display:contents}
 .g-axis .lbl,.g-row .lbl{padding:12px 14px;border-bottom:1px solid var(--line);font-size:14px}
 .g-scale{position:relative;border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(var(--years),1fr)}
@@ -86,7 +88,6 @@ section > .wrap > *{min-width:0}
 .job .meta{display:grid;gap:4px;align-content:start}
 .job h3{font-size:22px;font-weight:600}
 .job ul{margin:10px 0 0;padding-left:20px;display:grid;gap:8px}
-.todo{border:1px dashed var(--accent);background:var(--accent-soft);border-radius:8px;padding:14px 16px;font-size:15px}
 
 /* skills */
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
@@ -147,7 +148,7 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
 
 <header class="bar">
   <div class="wrap">
-    <b>Имя Фамилия</b>
+    <b>Евгений Полев</b>
     <nav aria-label="Разделы">
       <a href="#about">Обо мне</a>
       <a href="#experience">Опыт</a>
@@ -161,7 +162,7 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
 <div class="wrap hero" id="about">
   <p class="mono">Senior Product Designer · Enterprise UX</p>
   <h1>Проектирую рабочие места для людей, которые планируют производство</h1>
-  <p class="lead">Я ведущий продуктовый дизайнер в «Северсталь Инфоком». С февраля 2024 года отвечаю за интерфейсы IPS — системы производственного и тактического планирования. Работаю там, где на одном экране тысяча строк данных, диаграмма Ганта, алгоритмы размещения заказов и цена ошибки в тоннах металла.</p>
+  <p class="lead">Я продуктовый дизайнер с 2018 года, сейчас ведущий дизайнер в «Северсталь Инфоком». С февраля 2024 года отвечаю за интерфейсы IPS — системы производственного и тактического планирования. Работаю там, где на одном экране тысяча строк данных, диаграмма Ганта, алгоритмы размещения заказов и цена ошибки в тоннах металла.</p>
   <div class="facts">
     <span class="chip amber">B2B · Manufacturing · Enterprise</span>
     <span class="chip">Сложные таблицы и диаграммы Ганта</span>
@@ -169,10 +170,10 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
     <span class="chip">Discovery → спецификация → Design QA</span>
   </div>
   <div class="contacts" id="contacts">
-    <span>Город · формат работы</span>
-    <span>Telegram: @username</span>
-    <span>email@example.com</span>
-    <span>+7 (000) 000-00-00</span>
+    <span>Краснодар · удалённо или гибрид</span>
+    <a href="https://t.me/evgeniy_plv">Telegram: @evgeniy_plv</a>
+    <a href="mailto:polev.e.a@gmail.com">polev.e.a@gmail.com</a>
+    <a href="tel:+79937702379">+7 (993) 770-23-79</a>
   </div>
 </div>
 
@@ -184,14 +185,16 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
     </div>
 
     <div class="gantt" role="img" aria-label="Шкала опыта работы по годам">
-      <div class="gantt-inner" style="--years:4">
-        <div class="g-axis"><div class="lbl mono">Ресурс</div><div class="g-scale"><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div></div>
+      <div class="gantt-inner" style="--years:9">
+        <div class="g-axis"><div class="lbl mono">Ресурс</div><div class="g-scale"><span>2018</span><span>2019</span><span>2020</span><span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div></div>
         <div class="g-row"><div class="lbl">Северсталь Инфоком</div>
-          <div class="g-track"><div class="g-bar now" style="left:27.1%;right:6.3%">IPS · ведущий продуктовый дизайнер</div><div class="g-today" style="left:93.7%"></div></div></div>
-        <div class="g-row"><div class="lbl">Предыдущее место</div>
-          <div class="g-track"><div class="g-bar" style="left:0;right:73.4%">уточняется</div></div></div>
+          <div class="g-track"><div class="g-bar now" style="left:67.6%;right:2.8%" title="02.2024 — сейчас">Ведущий дизайнер · IPS</div><div class="g-today" style="left:97.2%"></div></div></div>
+        <div class="g-row"><div class="lbl">SimbirSoft</div>
+          <div class="g-track"><div class="g-bar" style="left:40.7%;right:32.4%" title="09.2021 — 01.2024">UX/UI-дизайнер</div></div></div>
+        <div class="g-row"><div class="lbl">Фриланс</div>
+          <div class="g-track"><div class="g-bar" style="left:5.6%;right:59.3%" title="07.2018 — 08.2021">UX/UI-дизайнер</div></div></div>
       </div>
-      <div class="g-legend"><span>Синяя линия — сегодня, сентябрь 2026</span><span>Полосы до 2024 года дополню из прошлого резюме</span></div>
+      <div class="g-legend"><span>Синяя линия — сегодня, сентябрь 2026</span><span>Всего в дизайне продуктов 8 лет</span></div>
     </div>
 
     <article class="job">
@@ -208,19 +211,40 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
           <li>Сократил постоянный интерфейс над таблицей со 140 до 88&nbsp;px (−37&nbsp;%) и вернул планировщику 68&nbsp;px рабочей области на каждом экране.</li>
           <li>Предложил программу улучшения бокового фильтра малыми изменениями: последовательная фильтрация, русские логические операторы, единые кнопки в гридах и ракурсах, поиск по атрибутам.</li>
           <li>Написал спецификацию именования токенов дизайн-системы ИЦК и правило «логических» компонентов, которое сокращает число токенов для полей формы в несколько раз.</li>
-          <li>Описал алгоритм обновления компонента Figma → Storybook и проектировал компоненты для библиотеки. Дизайн-система охватывает 95&nbsp;% корпоративных систем.</li>
-          <li>Участвовал во внедрении AI-агента для Design QA на n8n: он сравнивает продакшен-интерфейс с макетами и возвращает задачу на доработку при отклонении больше 30&nbsp;%.</li>
+          <li>Описал алгоритм обновления компонента Figma → Storybook и проектировал компоненты для библиотеки. Результат команды: дизайн-система охватывает 95&nbsp;% корпоративных систем.</li>
+          <li>Участвовал во внедрении AI-агента для Design QA на n8n: он сравнивает продакшен-интерфейс с макетами и возвращает задачу на доработку при отклонении больше 30&nbsp;%. Результат команды: дизайн-ревью стало в 2 раза быстрее.</li>
         </ul>
       </div>
     </article>
 
     <article class="job">
       <div class="meta">
-        <span class="mono tnum">ММ.ГГГГ — 01.2024</span>
+        <span class="mono tnum">09.2021 — 01.2024</span>
+        <span class="mono">2 года 5 мес.</span>
       </div>
       <div>
-        <h3>Должность · Компания</h3>
-        <div class="todo prose" style="margin-top:10px">Этот блок я заполню из прошлого резюме в Notion. Страница пока недоступна из рабочей среды.</div>
+        <h3>UX/UI-дизайнер · SimbirSoft</h3>
+        <p class="prose" style="color:var(--muted);margin-top:4px">IT-компания, заказная разработка. Проекты в транспортной логистике, финтехе, B2B и B2C.</p>
+        <ul class="prose">
+          <li>Спроектировал мобильное приложение сервиса оплаты покупок частями (BNPL): от концепции и пользовательского пути до UI-кита, передачи в разработку и контроля вёрстки. Дополнил продукт новыми разделами: история покупок, график платежей, напоминания об оплате.</li>
+          <li>Провёл опросы пользователей и интервью с экспертами предметной области, чтобы собрать требования к сложным сценариям до начала проектирования.</li>
+          <li>Проектировал интерфейсы мобильных и десктопных приложений для B2B-клиентов, включая систему управления ИТ-активами: CJM, UI-кит, интерактивные прототипы, согласование функциональности с разработкой.</li>
+          <li>Организовывал работу дизайн-команды до 5 человек на проекте.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="meta">
+        <span class="mono tnum">07.2018 — 08.2021</span>
+        <span class="mono">3 года 2 мес.</span>
+      </div>
+      <div>
+        <h3>UX/UI-дизайнер · Фриланс</h3>
+        <ul class="prose">
+          <li>Проектировал сайты и приложения по техническому заданию: анализ конкурентов, прототипы, дизайн-концепции, итоговые макеты.</li>
+          <li>Работал с заказчиками из банковской сферы, ритейла, здравоохранения и корпоративного сектора.</li>
+        </ul>
       </div>
     </article>
   </div>
@@ -241,6 +265,20 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
         <li>Дизайн-система, дизайн-токены, тёмная тема</li><li>Figma → Storybook, Code Connect</li><li>Спецификации и критерии приёмки</li><li>Бэклог с приоритетами P0–P2 и оценкой</li><li>Design Review и Design QA</li><li>Scrum, груминги, работа с аналитиками</li></ul></div>
       <div><h3>Инструменты</h3><ul>
         <li>Figma, FigJam</li><li>Storybook</li><li>Jira, Confluence</li><li>Miro</li><li>n8n</li><li>ChatGPT, Claude</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="mono">Образование</p>
+      <h2>Где учился</h2>
+    </div>
+    <div class="others">
+      <div class="other"><span class="mono">Профессия</span><h3>Школа UX/UI-дизайна Everest</h3><p>Исследования, сценарии и информационная архитектура, типографика и композиция, прототипирование, веб и мобильные версии.</p></div>
+      <div class="other"><span class="mono">Курсы</span><h3>Uprock, Helper</h3><p>Исследования, интерфейсы и мобильные приложения.</p></div>
+      <div class="other"><span class="mono">Высшее</span><h3>Кубанский государственный технологический университет</h3><p>Экспертиза и управление недвижимостью.</p></div>
     </div>
   </div>
 </section>
@@ -510,14 +548,17 @@ footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--mute
     <div class="others">
       <div class="other"><span class="mono">IPS · АРМ</span><h3>АРМ Планировщика</h3><p>Сценарии перепланирования заказа: изменение даты и количества, фиксация, запуск алгоритмов, изменение фасовки, выгрузка. Процесс описан в BPMN, для каждого шага сделаны экраны и уведомления.</p></div>
       <div class="other"><span class="mono">IPS · справочники</span><h3>Управление комбинациями признаков</h3><p>Просмотр, настройка отображения и создание комбинаций признаков в большом гриде. Полная карта переходов между экранами и модальными окнами.</p></div>
-      <div class="other"><span class="mono">DesignOps · n8n</span><h3>AI-агент для Design QA</h3><p>Командный проект. Агент сравнивает скриншоты продакшена с макетами и формирует отчёт. Если отклонение больше 30&nbsp;%, задача возвращается на доработку. Время дизайн-ревью сократилось в 2 раза.</p></div>
+      <div class="other"><span class="mono">DesignOps · n8n</span><h3>AI-агент для Design QA</h3><p>Командный проект. Агент сравнивает скриншоты продакшена с макетами и формирует отчёт. Если отклонение больше 30&nbsp;%, задача возвращается на доработку. Я участвовал во внедрении. Результат команды: время дизайн-ревью сократилось в 2 раза.</p></div>
+      <div class="other"><span class="mono">SimbirSoft · финтех · mobile</span><h3>Сервис оплаты покупок частями</h3><p>Мобильное приложение BNPL для офлайн- и онлайн-покупок: история покупок, график платежей, напоминания. Полный цикл: концепция, пользовательский путь, прототипы, UI-кит, передача в разработку и контроль вёрстки.</p></div>
+      <div class="other"><span class="mono">B2B · web</span><h3>Система управления ИТ-активами</h3><p>Корпоративная система учёта и контроля оборудования на всём жизненном цикле. CJM, UI-кит, интерактивные прототипы, согласование функциональности с разработкой.</p></div>
+      <div class="other"><span class="mono">Банк · web и mobile</span><h3>Дистанционное банковское обслуживание</h3><p>Мобильное приложение с нуля и веб-сервис: счета и вклады, СБП, платежи для физлиц и юрлиц, заявки на кредит. Конкурентный анализ, CJM и User Flow, проверка гипотез на прототипах.</p></div>
     </div>
   </div>
 </section>
 </main>
 
 <footer>
-  <div class="wrap">Имя Фамилия · Senior Product Designer · обновлено в сентябре 2026</div>
+  <div class="wrap">Евгений Полев · Senior Product Designer · обновлено в сентябре 2026</div>
 </footer>
 </body>
 </html>
