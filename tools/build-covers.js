@@ -68,25 +68,12 @@ body{width:${W}px;height:${H}px;overflow:hidden;position:relative;font-family:"O
 ${body}
 </body></html>`;
 
+// Пока без мокапов устройств: только сцена и заголовок.
+// Функции laptop() и tablet() оставлены, чтобы вернуть экраны позже.
 const covers = {
-  rakurs: base(`
-    <div class="cast" style="left:250px;top:330px;width:1060px;height:600px;transform:skewX(-30deg) translateX(300px);opacity:.8"></div>
-    <div class="scene" style="left:170px;top:300px">${laptop('rakurs-r1-main.jpg', 1060)}</div>
-    <h1 class="title">Ракурс<br>2.0</h1>`),
-
-  gantt: base(`
-    <div class="cast" style="left:300px;top:380px;width:980px;height:560px;transform:skewX(-30deg) translateX(300px);opacity:.75"></div>
-    <div class="scene" style="left:160px;top:320px;perspective:2200px">
-      <div style="transform:rotateY(16deg) rotateX(3deg);transform-origin:left center">${laptop('gantt-error.jpg', 1040, 'left top')}</div>
-    </div>
-    <h1 class="title" style="font-size:96px;top:160px">Планирование<br>на диаграмме<br>Ганта</h1>`, { beam: 118 }),
-
-  ds: base(`
-    <div class="cast" style="left:420px;top:200px;width:520px;height:780px;transform:skewX(-28deg) translateX(260px);opacity:.75"></div>
-    <div class="scene" style="left:330px;top:120px;perspective:2400px">
-      <div style="transform:rotateY(-12deg) rotateZ(-2deg)">${tablet('ds-tokens-spec.jpg', 600, 860)}</div>
-    </div>
-    <h1 class="title" style="top:190px">Дизайн-<br>система<br>ИЦК</h1>`, { beam: 104 }),
+  rakurs: base(`<h1 class="title">Ракурс<br>2.0</h1>`),
+  gantt: base(`<h1 class="title" style="font-size:96px;top:160px">Планирование<br>на диаграмме<br>Ганта</h1>`, { beam: 118 }),
+  ds: base(`<h1 class="title" style="top:190px">Дизайн-<br>система<br>ИЦК</h1>`, { beam: 104 }),
 };
 
 // Обложки финтех-кейсов (bnpl.jpg, bank.jpg) экспортированы из Figma и этим скриптом не генерируются.
