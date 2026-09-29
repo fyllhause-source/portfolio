@@ -1,4 +1,6 @@
-// Собирает обложки IPS-кейсов в assets/img/covers/*.jpg (1600×900, 16:9 как обложки из Figma).
+// Собирает обложки IPS-кейсов в assets/img/covers/*.jpg (1920×1080).
+// Стиль повторяет обложки финтех-кейсов из Figma: светлый бетон, диагональный свет,
+// устройство на поверхности и крупный тёмный заголовок справа.
 // Запуск из корня репозитория: NODE_PATH=$(npm root -g) node tools/build-covers.js
 const { chromium } = require('playwright');
 const fs = require('fs');
@@ -8,86 +10,83 @@ const root = path.resolve(__dirname, '..');
 const img = (p) => 'file://' + path.join(root, 'assets/img', p);
 const fonts = 'file://' + path.join(root, 'assets/fonts/fonts.css');
 
-const W = 1600, H = 900;
+const W = 1920, H = 1080;
 
-// Фрагмент скриншота 1920×1002: x, y, w, h в пикселях исходника, scale — увеличение
-const crop = (file, x, y, w, h, scale = 1) => `
-  <div class="crop" style="width:${w * scale}px;height:${h * scale}px;
-    background:url('${img(file)}') no-repeat;background-size:${1920 * scale}px auto;
-    background-position:-${x * scale}px -${y * scale}px"></div>`;
+// Шум бетона: SVG-турбулентность в data URI
+const noise = `url("data:image/svg+xml,${encodeURIComponent(
+  `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>`
+)}")`;
+const blots = `url("data:image/svg+xml,${encodeURIComponent(
+  `<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='b'><feTurbulence type='fractalNoise' baseFrequency='.012' numOctaves='4'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .5 -.12'/></filter><rect width='100%' height='100%' filter='url(%23b)'/></svg>`
+)}")`;
 
-const browser = (file, width) => `
-  <div class="browser" style="width:${width}px">
-    <div class="chrome"><i></i><i></i><i></i></div>
-    <img src="${img(file)}">
+// Ноутбук анфас: экран с рамкой и алюминиевое основание
+const laptop = (file, width, pos = 'top') => `
+  <div class="laptop" style="width:${width}px">
+    <div class="lid"><div class="cam"></div><div class="scr" style="background-image:url('${img(file)}');background-position:${pos}"></div></div>
+    <div class="deck"><div class="notch"></div></div>
   </div>`;
 
+// Планшет в портретной ориентации
+const tablet = (file, width, height) => `
+  <div class="tablet" style="width:${width}px;height:${height}px">
+    <div class="scr" style="background-image:url('${img(file)}');background-position:top"></div>
+  </div>`;
 
-const base = (bg, body) => `<!doctype html><html><head><meta charset="utf-8">
+const base = (body, { beam = 110 } = {}) => `<!doctype html><html><head><meta charset="utf-8">
 <link rel="stylesheet" href="${fonts}">
 <style>
 *{box-sizing:border-box;margin:0}
-body{width:${W}px;height:${H}px;overflow:hidden;position:relative;background:${bg};
-  font-family:"Onest",sans-serif;color:#fff;-webkit-font-smoothing:antialiased}
-.label{position:absolute;left:88px;top:80px;display:grid;gap:14px;max-width:760px;z-index:3}
-.tag{font-family:"IBM Plex Mono",monospace;font-size:20px;letter-spacing:.08em;text-transform:uppercase;opacity:.72}
-.title{font-size:58px;font-weight:700;line-height:1.08;letter-spacing:-.02em}
-.sub{font-size:24px;line-height:1.4;opacity:.8;max-width:620px}
-.browser{position:absolute;border-radius:16px;overflow:hidden;background:#fff;
-  box-shadow:0 40px 90px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.15)}
-.browser .chrome{height:34px;background:#eef0f4;display:flex;gap:8px;align-items:center;padding-left:16px}
-.browser .chrome i{width:11px;height:11px;border-radius:50%;background:#c9ced8}
-.browser img{display:block;width:100%}
-.crop{border-radius:14px;box-shadow:0 30px 70px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.06);background-color:#fff}
-.float{position:absolute;z-index:4}
-.chip{position:absolute;z-index:4;background:rgba(255,255,255,.14);backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,.28);border-radius:14px;padding:16px 20px;display:grid;gap:4px}
-.chip b{font-size:40px;font-weight:700;letter-spacing:-.02em}
-.chip span{font-size:18px;opacity:.85}
-.code{font-family:"IBM Plex Mono",monospace;font-size:22px;background:rgba(10,6,30,.55);
-  border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 16px}
-.phone{width:300px;height:620px;border-radius:44px;background:#0b0b0f;padding:12px;
-  box-shadow:0 40px 90px rgba(0,0,0,.4)}
-.phone img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:34px;display:block}
-.phones{position:absolute;right:90px;bottom:-70px;display:flex;gap:28px;align-items:flex-end}
-.phones .phone:nth-child(2){transform:translateY(-60px)}
-.glow{position:absolute;border-radius:50%;filter:blur(120px);opacity:.55}
-.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:80px 80px;
-  mask-image:linear-gradient(180deg,#000,transparent 80%)}
-</style></head><body>${body}</body></html>`;
-
-const label = (tag, title, sub) => `<div class="label"><p class="tag">${tag}</p>
-  <h1 class="title">${title}</h1>${sub ? `<p class="sub">${sub}</p>` : ''}</div>`;
+body{width:${W}px;height:${H}px;overflow:hidden;position:relative;font-family:"Onest",sans-serif;
+  -webkit-font-smoothing:antialiased;background:#e2e2e0}
+.wall{position:absolute;inset:0 0 24% 0;background:linear-gradient(180deg,#ebebe9,#dededc)}
+.desk{position:absolute;inset:76% 0 0 0;background:linear-gradient(180deg,#cfcfcd 0,#e4e4e2 8%,#d8d8d6 100%)}
+.desk::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,#e9e9e7,#b3b3b1)}
+.tex{position:absolute;inset:0;background-image:${noise};opacity:.12;mix-blend-mode:multiply}
+.blots{position:absolute;inset:0;background-image:${blots};opacity:.16;mix-blend-mode:multiply}
+.light{position:absolute;inset:-20%;background:linear-gradient(${beam}deg,transparent 36%,rgba(255,255,255,.9) 40%,rgba(255,255,255,.85) 55%,transparent 59%);filter:blur(10px);mix-blend-mode:screen}
+.shade{position:absolute;inset:-20%;background:linear-gradient(${beam}deg,rgba(60,60,60,.22) 0%,rgba(60,60,60,.12) 30%,transparent 36%,transparent 62%,rgba(60,60,60,.16) 70%,rgba(60,60,60,.2) 100%);filter:blur(12px)}
+.title{position:absolute;right:70px;top:170px;z-index:5;color:#111;font-weight:500;font-size:112px;line-height:1.02;
+  letter-spacing:-.015em;text-align:left}
+.scene{position:absolute;z-index:3}
+.laptop{position:relative}
+.lid{position:relative;background:#0d0d0e;border-radius:26px 26px 6px 6px;padding:22px 22px 26px;
+  box-shadow:inset 0 0 0 2px #3a3a3c,inset 0 0 0 4px #0d0d0e}
+.cam{position:absolute;left:50%;top:0;width:150px;height:22px;margin-left:-75px;background:#0d0d0e;border-radius:0 0 10px 10px;z-index:2}
+.scr{width:100%;aspect-ratio:1920/1002;border-radius:6px;background-size:100% auto;background-repeat:no-repeat;background-color:#fff}
+.deck::after{content:"";position:absolute;left:3%;right:3%;bottom:-18px;height:22px;border-radius:50%;background:rgba(0,0,0,.45);filter:blur(10px);z-index:-1}
+.deck{position:relative;height:34px;margin:0 -7%;border-radius:4px 4px 26px 26px;
+  background:linear-gradient(180deg,#e7e7e9 0,#c3c3c6 30%,#9d9da1 70%,#77777b 100%);
+  box-shadow:0 2px 0 #5f5f63}
+.notch{position:absolute;left:50%;top:0;width:180px;height:10px;margin-left:-90px;border-radius:0 0 10px 10px;background:linear-gradient(180deg,#9b9b9f,#c9c9cc)}
+.cast{position:absolute;z-index:2;background:rgba(30,30,30,.42);filter:blur(14px);border-radius:26px}
+.tablet::after{content:"";position:absolute;left:6%;right:6%;bottom:-16px;height:20px;border-radius:50%;background:rgba(0,0,0,.4);filter:blur(10px);z-index:-1}
+.tablet{position:relative;background:#0d0d0e;border-radius:44px;padding:22px;box-shadow:inset 0 0 0 3px #3a3a3c}
+.tablet .scr{height:100%;aspect-ratio:auto;border-radius:24px;background-size:100% auto}
+</style></head><body>
+<div class="wall"></div><div class="desk"></div><div class="blots"></div><div class="shade"></div><div class="light"></div><div class="tex"></div>
+${body}
+</body></html>`;
 
 const covers = {
-  rakurs: base('linear-gradient(135deg,#131a4a 0%,#2a3fb0 60%,#4d6cf0 100%)', `
-    <div class="grid"></div><div class="glow" style="width:700px;height:700px;right:-200px;top:-200px;background:#7d9cff"></div>
-    ${label('Enterprise · аналитика · план / факт / прогноз', 'Ракурс 2.0', 'Редизайн сводной таблицы план / факт на 1 000+ строк')}
-    <div style="position:absolute;left:300px;top:430px">${browser('rakurs-r1-main.jpg', 1380)}</div>
-    <div class="float" style="left:1110px;top:250px">${crop('rakurs-r2-inspector.jpg', 1546, 154, 358, 420, 1.15)}</div>
-    <div class="float" style="left:150px;top:830px">${crop('rakurs-r2-inspector.jpg', 454, 872, 884, 42, 1.1)}</div>
-    <div class="chip" style="left:88px;top:270px;display:flex;align-items:baseline;gap:14px"><b>−37&nbsp;%</b><span>интерфейса над таблицей</span></div>`),
+  rakurs: base(`
+    <div class="cast" style="left:250px;top:330px;width:1060px;height:600px;transform:skewX(-30deg) translateX(300px);opacity:.8"></div>
+    <div class="scene" style="left:170px;top:300px">${laptop('rakurs-r1-main.jpg', 1060)}</div>
+    <h1 class="title">Ракурс<br>2.0</h1>`),
 
-  gantt: base('linear-gradient(135deg,#062c2a 0%,#0d5f58 55%,#18a08f 100%)', `
-    <div class="grid"></div><div class="glow" style="width:640px;height:640px;left:-160px;bottom:-240px;background:#39d4bd"></div>
-    ${label('Enterprise · сложное взаимодействие', 'Интерактивное планирование на диаграмме Ганта', 'Drag-and-drop операций между ресурсами с учётом зависимостей')}
-    <div style="position:absolute;left:330px;top:420px">${browser('gantt-overview.jpg', 1360)}</div>
-    <div class="float" style="left:760px;top:300px">${crop('gantt-error.jpg', 1282, 72, 622, 90, 1.25)}</div>
-    <div class="float" style="left:110px;top:560px">${crop('gantt-error.jpg', 700, 268, 680, 410, 0.7)}</div>`),
-
-  ds: base('linear-gradient(135deg,#1c0f45 0%,#4a2aa6 60%,#8a5cf5 100%)', `
-    <div class="grid"></div><div class="glow" style="width:640px;height:640px;right:-120px;bottom:-200px;background:#c2a3ff"></div>
-    ${label('Дизайн-система · токены · Figma → Storybook', 'Дизайн-система ИЦК', 'Спецификация токенов и процесс обновления компонентов')}
-    <div class="browser" style="left:900px;top:120px;width:560px">
-      <div class="chrome"><i></i><i></i><i></i></div>
-      <div style="height:900px;background:url('${img('ds-tokens-spec.jpg')}') no-repeat top/100% auto"></div></div>
-    <div class="float" style="left:88px;top:430px;display:grid;gap:18px">
-      <p class="code" style="opacity:.55;text-decoration:line-through">--dropdown-padding-menu-horizont</p>
-      <p class="code">--dropdown-menu-padding_h</p>
-      <p class="code">--fild-border-color-hover</p>
+  gantt: base(`
+    <div class="cast" style="left:300px;top:380px;width:980px;height:560px;transform:skewX(-30deg) translateX(300px);opacity:.75"></div>
+    <div class="scene" style="left:160px;top:320px;perspective:2200px">
+      <div style="transform:rotateY(16deg) rotateX(3deg);transform-origin:left center">${laptop('gantt-error.jpg', 1040, 'left top')}</div>
     </div>
-    <div class="chip" style="left:88px;top:720px"><b>95&nbsp;%</b><span>корпоративных систем на ДС · результат команды</span></div>`),
+    <h1 class="title" style="font-size:96px;top:160px">Планирование<br>на диаграмме<br>Ганта</h1>`, { beam: 118 }),
+
+  ds: base(`
+    <div class="cast" style="left:420px;top:200px;width:520px;height:780px;transform:skewX(-28deg) translateX(260px);opacity:.75"></div>
+    <div class="scene" style="left:330px;top:120px;perspective:2400px">
+      <div style="transform:rotateY(-12deg) rotateZ(-2deg)">${tablet('ds-tokens-spec.jpg', 600, 860)}</div>
+    </div>
+    <h1 class="title" style="top:190px">Дизайн-<br>система<br>ИЦК</h1>`, { beam: 104 }),
 };
 
 // Обложки финтех-кейсов (bnpl.jpg, bank.jpg) экспортированы из Figma и этим скриптом не генерируются.
