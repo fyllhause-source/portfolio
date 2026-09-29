@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Портфолио продуктового дизайнера</title>
+<meta name="description" content="Senior Product Designer. Enterprise UX для промышленного планирования: IPS, дизайн-система, сложные таблицы и диаграммы Ганта.">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: одна колонка ~72ch для текста, широкие иллюстрации до 1200px; опыт показан как полосы на временной шкале планировщика */
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --fg:#161a22; --muted:#5a6272; --line:#dde1e8;
+  --accent:#b86e00;           /* сигнальный янтарь: «изменено», блочное расписание */
+  --accent-soft:#fbefd9;
+  --plan:#2f5bd3;             /* плановый синий: граница «факт | прогноз» */
+  --plan-soft:#e3eafb;
+  --font-body:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --wrap:1200px; --text:72ch;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12151b; --surface:#1a1e26; --fg:#e8ebf1; --muted:#9aa3b3; --line:#2b313c;
+  --accent:#f0a93a; --accent-soft:#3a2b12; --plan:#7d9cf2; --plan-soft:#1e2a47; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12151b; --surface:#1a1e26; --fg:#e8ebf1; --muted:#9aa3b3; --line:#2b313c;
+  --accent:#f0a93a; --accent-soft:#3a2b12; --plan:#7d9cf2; --plan-soft:#1e2a47; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--font-body);padding-inline:20px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--plan);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--plan);outline-offset:3px;border-radius:4px}
+h1,h2,h3{text-wrap:balance;line-height:1.2;margin:0}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin-inline:auto}
+.prose{max-width:var(--text)}
+.mono{font-family:var(--font-mono);font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-inline:-20px;padding:10px 20px}
+.bar .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.bar nav{display:flex;gap:18px;flex-wrap:wrap}
+.bar nav a{color:var(--fg);text-decoration:none;font-size:15px}
+.bar nav a:hover{color:var(--plan)}
+.bar b{font-weight:600}
+
+/* hero */
+.hero{padding-block:72px 40px;display:grid;gap:28px}
+.hero h1{font-size:clamp(34px,5.4vw,60px);font-weight:700;letter-spacing:-.02em;max-width:18ch}
+.hero .lead{font-size:20px;color:var(--muted);max-width:60ch}
+.facts{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:14px}
+.chip.amber{background:var(--accent-soft);border-color:transparent;color:var(--fg)}
+.contacts{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:15px;color:var(--muted)}
+.contacts span{user-select:all}
+
+section{padding-block:56px;border-top:1px solid var(--line)}
+section > .wrap{display:grid;gap:28px}
+section > .wrap > *{min-width:0}
+.sec-head{display:grid;gap:8px}
+.sec-head h2{font-size:clamp(26px,3.2vw,36px);font-weight:700;letter-spacing:-.01em}
+
+/* timeline — опыт как строки ресурса на диаграмме Ганта */
+.gantt{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow-x:auto}
+.gantt-inner{min-width:640px;display:grid;grid-template-columns:200px 1fr}
+.g-axis{display:contents}
+.g-axis .lbl,.g-row .lbl{padding:12px 14px;border-bottom:1px solid var(--line);font-size:14px}
+.g-scale{position:relative;border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(var(--years),1fr)}
+.g-scale span{font-family:var(--font-mono);font-size:12px;color:var(--muted);padding:12px 6px;border-left:1px solid var(--line)}
+.g-row{display:contents}
+.g-track{position:relative;border-bottom:1px solid var(--line);min-height:52px}
+.g-bar{position:absolute;top:12px;height:28px;border-radius:5px;background:var(--plan-soft);border:1px solid color-mix(in srgb,var(--plan) 45%,transparent);font-size:13px;display:flex;align-items:center;padding-inline:8px;white-space:nowrap;overflow:hidden}
+.g-bar.now{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 55%,transparent)}
+.g-today{position:absolute;top:0;bottom:0;width:2px;background:var(--plan)}
+.g-legend{display:flex;gap:16px;flex-wrap:wrap;padding:10px 14px;font-size:13px;color:var(--muted)}
+
+/* job */
+.job{display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px}
+.job .meta{display:grid;gap:4px;align-content:start}
+.job h3{font-size:22px;font-weight:600}
+.job ul{margin:10px 0 0;padding-left:20px;display:grid;gap:8px}
+.todo{border:1px dashed var(--accent);background:var(--accent-soft);border-radius:8px;padding:14px 16px;font-size:15px}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.skills h3{font-size:15px;font-weight:600;margin-bottom:10px}
+.skills ul{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15px;color:var(--muted)}
+
+/* case index */
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.card{display:grid;gap:10px;align-content:start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:var(--fg);transition:border-color .15s}
+.card:hover{border-color:var(--plan)}
+.card h3{font-size:19px;font-weight:600}
+.card p{font-size:15px;color:var(--muted)}
+
+/* case */
+.case > .wrap{gap:36px}
+.case-head{display:grid;gap:14px}
+.case-head h2{font-size:clamp(28px,3.8vw,44px);font-weight:700;letter-spacing:-.015em;max-width:24ch}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 24px;padding:16px 0;border-block:1px solid var(--line)}
+.kv div{display:grid;gap:2px}
+.kv b{font-weight:500;font-size:15px}
+.block{display:grid;gap:12px}
+.block h3{font-size:21px;font-weight:600}
+.block ul,.block ol{margin:0;padding-left:22px;display:grid;gap:8px}
+.fig{display:grid;gap:10px;margin:0}
+.fig img{border-radius:8px;border:1px solid var(--line);background:var(--surface)}
+.fig figcaption{font-size:14px;color:var(--muted);max-width:var(--text)}
+.fig.scroll{overflow-x:auto}
+.fig.scroll img{max-width:none;width:1800px}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.num{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:4px}
+.num strong{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.num span{font-size:14px;color:var(--muted)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px}
+.two > *{min-width:0}
+table.plain{border-collapse:collapse;width:100%;font-size:15px}
+table.plain th,table.plain td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.plain th{font-weight:500;color:var(--muted);font-size:13px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.04em}
+.tbl{overflow-x:auto}
+code{font-family:var(--font-mono);font-size:.88em;overflow-wrap:anywhere}
+.note{font-size:15px;color:var(--muted);border-left:3px solid var(--accent);padding-left:14px}
+
+.others{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.other{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:8px;align-content:start}
+.other h3{font-size:18px;font-weight:600}
+.other p{font-size:15px;color:var(--muted)}
+
+footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+
+@media (max-width:720px){
+  body{font-size:16px}
+  .job{grid-template-columns:1fr;gap:8px}
+  .hero{padding-block:44px 28px}
+  .bar nav{gap:12px}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <b>Имя Фамилия</b>
+    <nav aria-label="Разделы">
+      <a href="#about">Обо мне</a>
+      <a href="#experience">Опыт</a>
+      <a href="#cases">Кейсы</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap hero" id="about">
+  <p class="mono">Senior Product Designer · Enterprise UX</p>
+  <h1>Проектирую рабочие места для людей, которые планируют производство</h1>
+  <p class="lead">Я ведущий продуктовый дизайнер в «Северсталь Инфоком». С февраля 2024 года отвечаю за интерфейсы IPS — системы производственного и тактического планирования. Работаю там, где на одном экране тысяча строк данных, диаграмма Ганта, алгоритмы размещения заказов и цена ошибки в тоннах металла.</p>
+  <div class="facts">
+    <span class="chip amber">B2B · Manufacturing · Enterprise</span>
+    <span class="chip">Сложные таблицы и диаграммы Ганта</span>
+    <span class="chip">Дизайн-система и токены</span>
+    <span class="chip">Discovery → спецификация → Design QA</span>
+  </div>
+  <div class="contacts" id="contacts">
+    <span>Город · формат работы</span>
+    <span>Telegram: @username</span>
+    <span>email@example.com</span>
+    <span>+7 (000) 000-00-00</span>
+  </div>
+</div>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="mono">Опыт</p>
+      <h2>Где я работал</h2>
+    </div>
+
+    <div class="gantt" role="img" aria-label="Шкала опыта работы по годам">
+      <div class="gantt-inner" style="--years:4">
+        <div class="g-axis"><div class="lbl mono">Ресурс</div><div class="g-scale"><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div></div>
+        <div class="g-row"><div class="lbl">Северсталь Инфоком</div>
+          <div class="g-track"><div class="g-bar now" style="left:27.1%;right:6.3%">IPS · ведущий продуктовый дизайнер</div><div class="g-today" style="left:93.7%"></div></div></div>
+        <div class="g-row"><div class="lbl">Предыдущее место</div>
+          <div class="g-track"><div class="g-bar" style="left:0;right:73.4%">уточняется</div></div></div>
+      </div>
+      <div class="g-legend"><span>Синяя линия — сегодня, сентябрь 2026</span><span>Полосы до 2024 года дополню из прошлого резюме</span></div>
+    </div>
+
+    <article class="job">
+      <div class="meta">
+        <span class="mono tnum">02.2024 — сейчас</span>
+        <span class="mono">2 года 8 мес.</span>
+      </div>
+      <div>
+        <h3>Ведущий продуктовый дизайнер · Северсталь Инфоком</h3>
+        <p class="prose" style="color:var(--muted);margin-top:4px">IT-компания группы «Северсталь». IPS — enterprise-платформа производственного, оперативного и тактического планирования для металлургического производства.</p>
+        <ul class="prose">
+          <li>Спроектировал модуль планирования операций на диаграмме Ганта: масштабируемая шкала (часы, дни, недели), drag-and-drop операций между альтернативными ресурсами, видимые цепочки зависимостей, обработка конфликтов при сохранении. Провёл решение через три итерации с аналитиками и разработкой (08.2024 — 07.2025).</li>
+          <li>Провёл аудит и подготовил концепцию редизайна «Ракурса», главного рабочего места планировщика: 9 экранов, инвентарь из новых элементов для дизайн-системы и бэклог разработки на 10 эпиков и 55 задач с приоритетами и критериями приёмки.</li>
+          <li>Сократил постоянный интерфейс над таблицей со 140 до 88&nbsp;px (−37&nbsp;%) и вернул планировщику 68&nbsp;px рабочей области на каждом экране.</li>
+          <li>Предложил программу улучшения бокового фильтра малыми изменениями: последовательная фильтрация, русские логические операторы, единые кнопки в гридах и ракурсах, поиск по атрибутам.</li>
+          <li>Написал спецификацию именования токенов дизайн-системы ИЦК и правило «логических» компонентов, которое сокращает число токенов для полей формы в несколько раз.</li>
+          <li>Описал алгоритм обновления компонента Figma → Storybook и проектировал компоненты для библиотеки. Дизайн-система охватывает 95&nbsp;% корпоративных систем.</li>
+          <li>Участвовал во внедрении AI-агента для Design QA на n8n: он сравнивает продакшен-интерфейс с макетами и возвращает задачу на доработку при отклонении больше 30&nbsp;%.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="meta">
+        <span class="mono tnum">ММ.ГГГГ — 01.2024</span>
+      </div>
+      <div>
+        <h3>Должность · Компания</h3>
+        <div class="todo prose" style="margin-top:10px">Этот блок я заполню из прошлого резюме в Notion. Страница пока недоступна из рабочей среды.</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="mono">Навыки</p>
+      <h2>Чем я полезен команде</h2>
+    </div>
+    <div class="skills">
+      <div><h3>Продукт и исследования</h3><ul>
+        <li>Product Discovery, формулировка гипотез</li><li>Анализ бизнес-процессов и требований</li><li>Use cases, User Flow, CJM, JTBD</li><li>Юзабилити-тесты, tree testing, коридорные тесты</li><li>Конкурентный анализ (Optimacros, Knowledge Space, Jume)</li><li>Базовые метрики и план замеров</li></ul></div>
+      <div><h3>Проектирование</h3><ul>
+        <li>Enterprise UX, высокая плотность данных</li><li>Таблицы, пивоты, диаграммы Ганта</li><li>Информационная архитектура и навигация</li><li>Состояния: пусто, загрузка, ошибка, конфликт</li><li>Доступность: клавиатура, фокус, контраст</li><li>Интерактивные прототипы</li></ul></div>
+      <div><h3>Системы и процессы</h3><ul>
+        <li>Дизайн-система, дизайн-токены, тёмная тема</li><li>Figma → Storybook, Code Connect</li><li>Спецификации и критерии приёмки</li><li>Бэклог с приоритетами P0–P2 и оценкой</li><li>Design Review и Design QA</li><li>Scrum, груминги, работа с аналитиками</li></ul></div>
+      <div><h3>Инструменты</h3><ul>
+        <li>Figma, FigJam</li><li>Storybook</li><li>Jira, Confluence</li><li>Miro</li><li>n8n</li><li>ChatGPT, Claude</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="cases">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="mono">Кейсы</p>
+      <h2>Избранные работы в IPS</h2>
+      <p class="prose" style="color:var(--muted)">Все экраны показаны с демо-данными. Внутренние адреса и имена сотрудников скрыты.</p>
+    </div>
+    <div class="cases">
+      <a class="card" href="#case-rakurs"><span class="mono">Discovery · концепция</span><h3>Ракурс 2.0: рабочее место планировщика</h3><p>Аудит, концепция и бэклог редизайна главного экрана тактического планирования.</p></a>
+      <a class="card" href="#case-gantt"><span class="mono">Сложный интерфейс</span><h3>Планирование операций на диаграмме Ганта</h3><p>Интерфейс для перепланирования операций между ресурсами с учётом цепочек.</p></a>
+      <a class="card" href="#case-filter"><span class="mono">Улучшение продукта</span><h3>Боковой фильтр малыми изменениями</h3><p>Девять правок, которые почти ничего не стоят разработке.</p></a>
+      <a class="card" href="#case-ds"><span class="mono">Дизайн-система</span><h3>Токены и обновление компонентов</h3><p>Правила именования и процесс Figma → Storybook для ДС ИЦК.</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 1 -->
+<section class="case" id="case-rakurs">
+  <div class="wrap">
+    <div class="case-head">
+      <p class="mono">Кейс 1 · IPS Тактическое планирование · 2026</p>
+      <h2>Ракурс 2.0: рабочее место планировщика</h2>
+      <p class="prose lead" style="font-size:19px;color:var(--muted)">«Ракурс» — это настраиваемая сетка, в которой планировщики сводят прогнозы, заказы и консенсус-план по месяцам. Здесь проходит основная работа. При этом экран выглядел как админка: тупики, одинаковые иконки, таблица, которую сжимает любая панель.</p>
+      <div class="kv">
+        <div><span class="mono">Роль</span><b>Ведущий продуктовый дизайнер</b></div>
+        <div><span class="mono">Этап</span><b>Концепция и бэклог, до разработки</b></div>
+        <div><span class="mono">Пользователи</span><b>Планировщики продаж и спроса</b></div>
+        <div><span class="mono">Объём</span><b>17 показателей · 1&nbsp;127 строк</b></div>
+      </div>
+    </div>
+
+    <figure class="fig">
+      <img src="assets/img/rakurs-r1-main.jpg" alt="Основной вид Ракурса после редизайна: командная строка с подписями, строка среза, двухуровневая шапка периодов с границей факт/прогноз, группы показателей, спарклайны и строка итогов" loading="lazy" width="1920" height="1002">
+      <figcaption>R1. Основной вид. Командная строка с подписями вместо голых иконок, срез внутри таблицы, граница «факт | прогноз», группы показателей со счётчиком, колонка «Динамика» и закреплённые итоги.</figcaption>
+    </figure>
+
+    <div class="two">
+      <div class="block">
+        <h3>Что я нашёл на аудите</h3>
+        <ul>
+          <li>12 одинаковых иконок в меню, 6 из 12 названий обрезаны.</li>
+          <li>Заголовок страницы дублирует вкладку и занимает 52&nbsp;px.</li>
+          <li>Селектор релиза занимает 280&nbsp;px в шапке каждого экрана, хотя планировщику он не нужен.</li>
+          <li>Панель настройки шириной 500&nbsp;px сжимает таблицу до 1&nbsp;136&nbsp;px, и результат настройки не виден.</li>
+          <li>«Данные не загружены. Проверьте настройки» — сообщение без единой кнопки.</li>
+          <li>Все ячейки выглядят одинаково, включая изменённые и пустые.</li>
+          <li>Макросы названы по-системному: «АМ5 — Умножение долевого коэффициента на 100».</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Моя роль</h3>
+        <ul>
+          <li>Провёл аудит текущей версии и разобрал сценарии: найти расхождение, поправить консенсус, запустить макрос, настроить ракурс.</li>
+          <li>Сделал конкурентный анализ Optimacros, Knowledge Space и Jume по открытым материалам.</li>
+          <li>Спроектировал 9 экранов концепции (R1–R9) и собрал инвентарь новых элементов для ДС.</li>
+          <li>Разложил концепцию в бэклог разработки и бэклог дизайна с критериями приёмки.</li>
+          <li>Составил план исследований и базовых метрик для проверки результата.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block prose">
+      <h3>Ключевые решения</h3>
+      <ol>
+        <li><b>Таблица главнее хрома.</b> Убрал дубль заголовка и перенёс срез внутрь карточки таблицы. Вкладка документа теперь несёт имя объекта.</li>
+        <li><b>Граница «факт | прогноз».</b> Шапка стала двухуровневой: год, затем месяц. Горизонт прогноза выделен акцентной линией и меткой. Это главный ориентир в сетке.</li>
+        <li><b>Восемь состояний ячейки вместо одного.</b> Редактируемая, расчётная, только чтение, изменённая, пустая, «не применимо» и другие. Признак приходит из метаданных, а не зашит во фронте.</li>
+        <li><b>Настройка поверх таблицы.</b> Drawer больше не сжимает сетку, изменения видны сразу в живом превью. Поля раскладываются по трём зонам: строки, столбцы, значения.</li>
+        <li><b>Инспектор ячейки.</b> Значение, дельта к прогнозу, допустимый диапазон, источник расчёта, история и комментарии. Он открывается по выделению и не сдвигает сетку.</li>
+        <li><b>Честный статус данных.</b> Прогресс, оценка времени и причина ошибки вместо блокирующего спиннера. Таблица доступна с первой готовой порции строк.</li>
+      </ol>
+    </div>
+
+    <div class="two">
+      <figure class="fig"><img src="assets/img/rakurs-r2-inspector.jpg" alt="Выделена ячейка консенсуса, справа инспектор со значением 8&nbsp;460 т, дельтой +2,4&nbsp;%, историей изменений и комментарием; внизу панель массовых действий" loading="lazy" width="1920" height="1002"><figcaption>R2. Инспектор ячейки и панель массовых действий: ±5&nbsp;%, задать значение, распределить по периодам.</figcaption></figure>
+      <figure class="fig"><img src="assets/img/rakurs-r3-settings.jpg" alt="Drawer настройки ракурса поверх таблицы с зонами строк, столбцов и значений и переключателем предпросмотра" loading="lazy" width="1920" height="1002"><figcaption>R3. Настройка ракурса поверх таблицы, с профилями и живым превью.</figcaption></figure>
+    </div>
+
+    <figure class="fig">
+      <img src="assets/img/rakurs-r8-vertical.jpg" alt="Сравнение было/стало: постоянный хром 140&nbsp;px и рабочая область 620&nbsp;px против 88&nbsp;px и 688&nbsp;px" loading="lazy" width="1920" height="577">
+      <figcaption>R8. Вертикаль до и после. Каждая строка хрома посчитана в пикселях.</figcaption>
+    </figure>
+
+    <div class="nums">
+      <div class="num"><strong>−37&nbsp;%</strong><span>постоянный хром над таблицей, 140 → 88&nbsp;px</span></div>
+      <div class="num"><strong>+68&nbsp;px</strong><span>рабочей области таблицы, 620 → 688&nbsp;px</span></div>
+      <div class="num"><strong>55 задач</strong><span>в 10 эпиках, приоритеты P0–P2, оценка S–XL</span></div>
+      <div class="num"><strong>9 экранов</strong><span>концепции, от основного вида до навигации</span></div>
+    </div>
+
+    <div class="block prose">
+      <h3>Как я предлагаю проверить результат</h3>
+      <p>Концепция ещё не в разработке, поэтому я не выдаю её за доказанный эффект. Вместе с макетами я заложил план проверки:</p>
+      <ul>
+        <li>Юзабилити-тест прототипа на 6–8 планировщиках. Главный вопрос: понимают ли они границу «факт | прогноз» и статус данных.</li>
+        <li>Древесное тестирование на 10–12 пользователях для новой группировки меню «Общее · Аналитическая модель · ПАО · Данные».</li>
+        <li>Базовые метрики на текущей версии: время правки 40 ячеек, время до первой правки, число откатов, доля работы, уходящей в Excel.</li>
+      </ul>
+      <p class="note">Отдельно я вынес открытые вопросы, которые меняют объём, а не интерфейс: конфликт двух планировщиков в одном срезе, workflow согласования консенсуса, сценарии «что если».</p>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 2 -->
+<section class="case" id="case-gantt">
+  <div class="wrap">
+    <div class="case-head">
+      <p class="mono">Кейс 2 · IPS Оперативное планирование · 08.2024 — 07.2025</p>
+      <h2>Планирование операций на диаграмме Ганта</h2>
+      <p class="prose lead" style="font-size:19px;color:var(--muted)">Планировщику нужно было не только смотреть план загрузки оборудования, но и менять его на месте: переносить операции во времени и между альтернативными ресурсами, чтобы приоритизировать заказы и выровнять загрузку.</p>
+      <div class="kv">
+        <div><span class="mono">Роль</span><b>Продуктовый дизайнер модуля</b></div>
+        <div><span class="mono">Команда</span><b>Аналитики, разработка, владелец продукта</b></div>
+        <div><span class="mono">Итерации</span><b>08.2024 · 05.2025 · 07.2025</b></div>
+        <div><span class="mono">Статус</span><b>Передано в разработку</b></div>
+      </div>
+    </div>
+
+    <figure class="fig">
+      <img src="assets/img/gantt-overview.jpg" alt="Экран «Планирование операций»: ресурсы по строкам, дни по столбцам, блочное расписание отдельной полосой, наполнение бакета операциями" loading="lazy" width="1920" height="1002">
+      <figcaption>Рабочий слой — диаграмма Ганта. Ресурсы идут по строкам, время по столбцам, блочное расписание выделено отдельной полосой. Внизу выбор масштаба и диапазон.</figcaption>
+    </figure>
+
+    <div class="two">
+      <div class="block">
+        <h3>В чём сложность</h3>
+        <p>Нарисовать Ганта несложно. Сложно уложить в интерфейс производственную логику:</p>
+        <ul>
+          <li>цепочки планирования, где перенос одной операции сдвигает остальные;</li>
+          <li>блочные расписания и временные бакеты;</li>
+          <li>три алгоритма размещения: неограниченное планирование, свободный слот, занятый слот;</li>
+          <li>права пользователя и ошибки при сохранении;</li>
+          <li>много объектов на одном экране.</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Что я делал</h3>
+        <ul>
+          <li>Разобрал бизнес-процесс оценки и корректировки оперативного плана и алгоритмы размещения заказов на мощностях.</li>
+          <li>Описал use cases от простого просмотра плана до редактирования цепочек.</li>
+          <li>Нашёл критические точки заранее: проверку прав, невозможность сохранения, разрыв связей.</li>
+          <li>Спроектировал структуру экрана, состояния и паттерны взаимодействия.</li>
+          <li>Обновлял макеты и функциональные требования после грумингов.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block prose">
+      <h3>Решения и почему они такие</h3>
+      <ol>
+        <li><b>Ганта вместо списка.</b> Планирование — это время и параллельность. Только шкала показывает загрузку нескольких ресурсов сразу и свободные окна для переноса.</li>
+        <li><b>Drag-and-drop как прямая манипуляция.</b> Форма «выберите ресурс и время» даёт лишнюю когнитивную нагрузку. Перетаскивание совпадает с тем, как диспетчер привык работать с доской планирования.</li>
+        <li><b>Видимые цепочки.</b> Без связей пользователь не видит последствий переноса. При выделении операции подсвечивается вся цепочка.</li>
+        <li><b>Масштаб часы → дни → недели.</b> Масштаб влияет и на отображение, и на доступные действия.</li>
+        <li><b>Слои по запросу.</b> Легенда, метрики и блочное расписание включаются чекбоксами. Фильтры вынесены в модальное окно, чтобы не загромождать рабочую область.</li>
+      </ol>
+    </div>
+
+    <figure class="fig">
+      <img src="assets/img/gantt-error.jpg" alt="Выбрана операция, показана цепочка связей через три ресурса и уведомление об ошибке: нет свободного интервала для связанной операции" loading="lazy" width="1920" height="1002">
+      <figcaption>Перенос операции со связанной цепочкой. Если для связанной операции нет свободного интервала, система объясняет причину, а не молча отменяет действие.</figcaption>
+    </figure>
+
+    <div class="block prose">
+      <h3>Результат</h3>
+      <p>Спроектировано рабочее место планировщика, согласованное с производственной логикой и ограничениями мощностей. Снята неопределённость в требованиях, зафиксированы ключевые сценарии и интерфейсные паттерны работы со шкалой, ресурсами и операциями. Модуль передан в разработку. Количественные замеры появятся после запуска у планировщиков.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 3 -->
+<section class="case" id="case-filter">
+  <div class="wrap">
+    <div class="case-head">
+      <p class="mono">Кейс 3 · IPS · улучшение существующего продукта</p>
+      <h2>Боковой фильтр малыми изменениями</h2>
+      <p class="prose lead" style="font-size:19px;color:var(--muted)">Фильтр используется во всех гридах и ракурсах IPS. Пользователи жаловались, что фильтровать долго и неудобно. Большой редизайн не помещался в планы команды, поэтому я предложил девять правок, которые стоят разработке мало, а работу пользователя меняют заметно.</p>
+    </div>
+
+    <figure class="fig scroll">
+      <img src="assets/img/filter-steps.jpg" alt="Последовательность из девяти макетов фильтра: от текущего вида к финальному с последовательной фильтрацией и поиском по атрибутам" loading="lazy" width="2400" height="274">
+      <figcaption>Программа изменений шаг за шагом. Каждый шаг можно выпустить отдельно. Прокрутите по горизонтали.</figcaption>
+    </figure>
+
+    <div class="tbl">
+      <table class="plain">
+        <thead><tr><th>#</th><th>Изменение</th><th>Зачем</th></tr></thead>
+        <tbody>
+          <tr><td class="tnum">1</td><td>Увеличить ширину панели</td><td>Русские логические операторы не помещались</td></tr>
+          <tr><td class="tnum">2</td><td>Убрать чекбоксы внизу</td><td>Рудимент, который никто не использует</td></tr>
+          <tr><td class="tnum">3</td><td>Объединить создание и редактирование, вынести выбор сохранённого фильтра из скролла</td><td>Главное действие всегда на виду</td></tr>
+          <tr><td class="tnum">4</td><td>Привести кнопки подвала к одному виду в гридах и ракурсах</td><td>Одна привычка вместо двух</td></tr>
+          <tr><td class="tnum">5</td><td>Уменьшить высоту полей, русифицировать операторы и отсортировать по алфавиту</td><td>Больше условий на экране, быстрее поиск оператора</td></tr>
+          <tr><td class="tnum">6</td><td>Последовательная фильтрация</td><td>Значения в следующих полях учитывают уже выбранные, пустых комбинаций нет</td></tr>
+          <tr><td class="tnum">7</td><td>Поднимать атрибуты со значениями наверх после применения</td><td>Сразу видно, что отфильтровано</td></tr>
+          <tr><td class="tnum">8</td><td>Поиск по атрибутам, если их больше 15</td><td>Длинный список перестаёт быть проблемой</td></tr>
+          <tr><td class="tnum">9</td><td>Заменить «Выберите фильтр» на «Без предварительных настроек»</td><td>Видно текущее состояние и можно вернуться к нему без сброса</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="block prose">
+      <h3>Что это показывает</h3>
+      <p>Я умею не только рисовать большие концепции, но и находить дешёвые изменения с высоким эффектом, упаковывать их в план, который разработка может взять по частям, и защищать приоритет. Отдельно я описал процесс создания фильтра с ошибками и состояниями.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 4 -->
+<section class="case" id="case-ds">
+  <div class="wrap">
+    <div class="case-head">
+      <p class="mono">Кейс 4 · Дизайн-система ИЦК · командный проект</p>
+      <h2>Токены и обновление компонентов</h2>
+      <p class="prose lead" style="font-size:19px;color:var(--muted)">Дизайн-система ИЦК внедрена в production и покрывает 95&nbsp;% корпоративных систем, включая 2 высоконагруженные системы и 10 внутренних продуктов. Это работа всей команды. Здесь я показываю свою часть: правила токенов, процесс обновления компонентов и проектирование компонентов.</p>
+    </div>
+
+    <div class="two">
+      <div class="block">
+        <h3>Проблема</h3>
+        <ul>
+          <li>Токены именовались по-разному: <code>table-cell-padding-m-between</code> рядом с <code>checkbox-2-border-radius</code>.</li>
+          <li>Компоненты переиспользовали токены друг друга, и это путало дизайнеров и разработчиков.</li>
+          <li>Любое изменение компонента в Figma могло «поехать» в коде в местах, о которых никто не знал.</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Что я сделал</h3>
+        <ul>
+          <li>Написал спецификацию: префикс типа → адрес элемента → свойство → состояние → размер → режим.</li>
+          <li>Ввёл правила атрибутов: без пробелов и дефисов внутри имени, составные через «_» (<code>padding_h</code>, <code>size_w_max</code>).</li>
+          <li>Предложил логический компонент <code>fild</code> для полей формы. Он заменяет десятки уникальных токенов select, input, textarea, checkbox и radio.</li>
+          <li>Описал алгоритм обновления компонента Figma → Storybook с синхронизацией токенов и сценарием «не согласовали».</li>
+          <li>Разобрал баг кнопки в ячейке таблицы: лишняя обёртка с фиксированной шириной искажала кнопку по умолчанию.</li>
+        </ul>
+      </div>
+    </div>
+
+    <figure class="fig" style="max-width:760px">
+      <img src="assets/img/ds-tokens-spec.jpg" alt="Страница спецификации токенов: общее правило следования атрибутов, правила наименования, примеры переименования и сокращение числа токенов за счёт логических компонентов" loading="lazy" width="1497" height="3139">
+      <figcaption>Черновик спецификации токенов. Пример: <code>--dropdown-padding-menu-horizont</code> превращается в <code>--dropdown-menu-padding_h</code>.</figcaption>
+    </figure>
+
+    <div class="block prose">
+      <h3>Пример: обновить чекбокс и ничего не сломать</h3>
+      <p>Новый чекбокс был меньше старого. Отступы в ячейках, дропдаунах и других компонентах рассчитаны от старого размера. Я разобрал три варианта:</p>
+      <ol>
+        <li>Обновить токены, но сохранить размер. Изменения оформления согласовать отдельно.</li>
+        <li>Обновить как есть и чинить отступы по мере появления проблем.</li>
+        <li>Пакетно обновить все компоненты с чекбоксом и вместе протестировать. Это надёжно, но дольше.</li>
+      </ol>
+      <p>Главный принцип: пока нет понимания, как быстро изменение попадёт в код, в макетах используется текущая версия компонента. Так макеты не расходятся с тем, что реально будет в продукте.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="mono">Другие работы</p>
+      <h2>Коротко</h2>
+    </div>
+    <div class="others">
+      <div class="other"><span class="mono">IPS · АРМ</span><h3>АРМ Планировщика</h3><p>Сценарии перепланирования заказа: изменение даты и количества, фиксация, запуск алгоритмов, изменение фасовки, выгрузка. Процесс описан в BPMN, для каждого шага сделаны экраны и уведомления.</p></div>
+      <div class="other"><span class="mono">IPS · справочники</span><h3>Управление комбинациями признаков</h3><p>Просмотр, настройка отображения и создание комбинаций признаков в большом гриде. Полная карта переходов между экранами и модальными окнами.</p></div>
+      <div class="other"><span class="mono">DesignOps · n8n</span><h3>AI-агент для Design QA</h3><p>Командный проект. Агент сравнивает скриншоты продакшена с макетами и формирует отчёт. Если отклонение больше 30&nbsp;%, задача возвращается на доработку. Время дизайн-ревью сократилось в 2 раза.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">Имя Фамилия · Senior Product Designer · обновлено в сентябре 2026</div>
+</footer>
+</body>
+</html>
